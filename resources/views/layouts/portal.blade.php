@@ -11,20 +11,29 @@
 </head>
 <body class="font-sans antialiased bg-slate-50 text-slate-800">
     <div class="min-h-screen flex flex-col">
-        <header class="bg-white border-b border-slate-200 shadow-sm">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-skylink-700 flex items-center justify-center text-white font-bold text-sm">
-                        SL
-                    </div>
-                    <div>
-                        <p class="font-semibold text-skylink-900">SkyLink MBC</p>
-                        <p class="text-xs text-slate-500">{{ $area ?? 'Client Portal' }}</p>
-                    </div>
-                </div>
-                <a href="{{ config('portal.website_url') }}" class="text-sm text-skylink-700 hover:text-skylink-900 font-medium">
-                    &larr; Back to website
+        <header class="bg-gradient-to-r from-skylink-950 via-skylink-900 to-skylink-800 text-white shadow-md">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+                <a href="{{ config('portal.website_url') }}" class="hover:opacity-90 transition min-w-0">
+                    <x-brand-logo variant="light" :area="$area ?? 'Client Portal'" />
                 </a>
+
+                <div class="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+                    @auth('web')
+                        <span class="hidden sm:inline text-sm text-skylink-200">{{ auth('web')->user()->name }}</span>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                    class="inline-flex items-center rounded-lg border border-white/30 bg-white/10 hover:bg-white/20 px-3.5 py-2 text-sm font-medium text-white transition">
+                                Sign out
+                            </button>
+                        </form>
+                    @endauth
+
+                    <a href="{{ config('portal.website_url') }}"
+                       class="text-sm text-skylink-200 hover:text-white font-medium whitespace-nowrap">
+                        &larr; Back to website
+                    </a>
+                </div>
             </div>
         </header>
 

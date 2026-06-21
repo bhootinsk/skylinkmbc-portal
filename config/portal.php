@@ -6,6 +6,8 @@ return [
 
     'website_url' => env('PORTAL_WEBSITE_URL', 'https://skylinkmbc.biz'),
 
+    'logo_url' => env('PORTAL_LOGO_URL'),
+
     'max_upload_size_kb' => (int) env('PORTAL_MAX_UPLOAD_KB', 51200),
 
     'allowed_extensions' => ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'zip'],

@@ -12,14 +12,10 @@
 <body class="font-sans antialiased bg-slate-100 text-slate-800">
     <div class="min-h-screen flex">
         <aside class="w-64 bg-skylink-950 text-white flex-shrink-0 hidden md:flex md:flex-col">
-            <div class="px-6 py-5 border-b border-skylink-800">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-lg bg-skylink-700 flex items-center justify-center font-bold text-sm">SL</div>
-                    <div>
-                        <p class="font-semibold">SkyLink MBC</p>
-                        <p class="text-xs text-skylink-300">Admin Portal</p>
-                    </div>
-                </div>
+            <div class="px-5 py-5 border-b border-skylink-800">
+                <a href="{{ route('admin.dashboard') }}" class="block hover:opacity-90 transition">
+                    <x-brand-logo variant="light" area="Admin Portal" size="sm" />
+                </a>
             </div>
             <nav class="flex-1 px-4 py-4 space-y-1 text-sm">
                 <a href="{{ route('admin.dashboard') }}"
@@ -39,19 +35,37 @@
                     Activity Log
                 </a>
             </nav>
-            <div class="px-4 py-4 border-t border-skylink-800 text-xs text-skylink-300 space-y-2">
-                <p>{{ auth('admin')->user()->name }}</p>
-                <a href="{{ config('portal.website_url') }}" class="block hover:text-white">&larr; Back to website</a>
+            <div class="px-4 py-4 border-t border-skylink-800 space-y-3">
+                <p class="text-xs text-skylink-300 truncate">{{ auth('admin')->user()->name }}</p>
+                <a href="{{ config('portal.website_url') }}" class="block text-xs text-skylink-300 hover:text-white">&larr; Back to website</a>
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit"
+                            class="w-full rounded-lg bg-skylink-800 hover:bg-skylink-700 border border-skylink-700 px-4 py-2.5 text-sm font-medium text-white transition">
+                        Sign out
+                    </button>
+                </form>
             </div>
         </aside>
 
         <div class="flex-1 flex flex-col min-w-0">
-            <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-4 flex items-center justify-between md:hidden">
-                <p class="font-semibold text-skylink-900">Admin Portal</p>
-                <form method="POST" action="{{ route('admin.logout') }}">
-                    @csrf
-                    <button type="submit" class="text-sm text-slate-600">Sign out</button>
-                </form>
+            <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-4 flex items-center justify-between">
+                <div class="min-w-0">
+                    <p class="font-semibold text-skylink-900 truncate">{{ $heading ?? 'Admin Portal' }}</p>
+                    @isset($subheading)
+                        <p class="text-xs text-slate-500 mt-0.5 truncate">{{ $subheading }}</p>
+                    @endisset
+                </div>
+                <div class="flex items-center gap-3 flex-shrink-0">
+                    <span class="hidden sm:inline text-sm text-slate-600">{{ auth('admin')->user()->name }}</span>
+                    <form method="POST" action="{{ route('admin.logout') }}" class="md:hidden">
+                        @csrf
+                        <button type="submit"
+                                class="inline-flex items-center rounded-lg bg-skylink-700 hover:bg-skylink-800 px-3.5 py-2 text-sm font-medium text-white transition">
+                            Sign out
+                        </button>
+                    </form>
+                </div>
             </header>
 
             <main class="flex-1 p-4 sm:p-6 lg:p-8">
@@ -76,12 +90,8 @@
                 </div>
             </main>
 
-            <footer class="px-6 py-3 text-xs text-slate-500 border-t border-slate-200 bg-white flex justify-between">
-                <span>&copy; {{ date('Y') }} SkyLink MBC</span>
-                <form method="POST" action="{{ route('admin.logout') }}" class="hidden md:block">
-                    @csrf
-                    <button type="submit" class="hover:text-slate-800">Sign out</button>
-                </form>
+            <footer class="px-6 py-3 text-xs text-slate-500 border-t border-slate-200 bg-white">
+                &copy; {{ date('Y') }} SkyLink MBC
             </footer>
         </div>
     </div>

@@ -34,11 +34,12 @@ class UserController extends Controller
     public function store(StoreUserRequest $request, ActivityLogger $logger): RedirectResponse
     {
         $user = User::create([
-            'username' => $request->string('username'),
-            'name' => $request->string('name'),
-            'email' => $request->string('email'),
-            'role' => $request->string('role'),
-            'password' => $request->string('password'),
+            'username' => $request->input('username'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'role' => UserRole::from($request->input('role')),
+            'password' => $request->input('password'),
+            'email_verified_at' => now(),
         ]);
 
         $logger->log('user.created', Auth::guard('admin')->user(), null, $request, [
@@ -62,17 +63,17 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user, ActivityLogger $logger): RedirectResponse
     {
         $data = [
-            'username' => $request->string('username'),
-            'name' => $request->string('name'),
-            'email' => $request->string('email'),
+            'username' => $request->input('username'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
         ];
 
         if ($request->filled('password')) {
-            $data['password'] = $request->string('password');
+            $data['password'] = $request->input('password');
         }
 
         if (! $user->is_protected && $request->filled('role')) {
-            $data['role'] = $request->string('role');
+            $data['role'] = UserRole::from($request->input('role'));
         }
 
         $user->update($data);

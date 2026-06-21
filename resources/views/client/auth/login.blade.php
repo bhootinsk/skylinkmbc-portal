@@ -1,5 +1,8 @@
 <x-portal-layout area="Client Portal">
     <div class="max-w-md mx-auto px-4 py-12">
+        <div class="flex justify-center mb-6">
+            <x-brand-logo :showName="false" size="lg" />
+        </div>
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
             <h1 class="text-2xl font-semibold text-skylink-900 mb-2">Client Login</h1>
             <p class="text-sm text-slate-600 mb-6">

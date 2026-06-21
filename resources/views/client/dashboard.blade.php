@@ -1,14 +1,8 @@
 <x-portal-layout area="Client Portal">
     <div class="max-w-5xl mx-auto px-4 py-8">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-            <div>
-                <h1 class="text-2xl font-semibold text-skylink-900">Welcome, {{ auth('web')->user()->name }}</h1>
-                <p class="text-slate-600 text-sm mt-1">Upload, download, and manage your secure documents.</p>
-            </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="text-sm text-slate-600 hover:text-slate-900 underline">Sign out</button>
-            </form>
+        <div class="mb-8">
+            <h1 class="text-2xl font-semibold text-skylink-900">Welcome, {{ auth('web')->user()->name }}</h1>
+            <p class="text-slate-600 text-sm mt-1">Upload, download, and manage your secure documents.</p>
         </div>
 
         @include('components.flash-messages')
