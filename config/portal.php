@@ -8,6 +8,8 @@ return [
 
     'logo_url' => env('PORTAL_LOGO_URL'),
 
+    'idle_timeout_minutes' => (int) env('PORTAL_IDLE_TIMEOUT_MINUTES', 30),
+
     'max_upload_size_kb' => (int) env('PORTAL_MAX_UPLOAD_KB', 51200),
 
     'allowed_extensions' => ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'zip'],

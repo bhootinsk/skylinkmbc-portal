@@ -12,7 +12,7 @@ Route::middleware('guest.admin')->group(function () {
     Route::post('login', [AdminLoginController::class, 'store'])->middleware('throttle:5,1');
 });
 
-Route::middleware(['auth:admin', 'admin.access', 'not.suspended:admin'])->group(function () {
+Route::middleware(['auth:admin', 'admin.access', 'not.suspended:admin', 'idle.timeout:admin'])->group(function () {
     Route::get('/', AdminDashboardController::class)->name('dashboard');
     Route::post('logout', [AdminLoginController::class, 'destroy'])->name('logout');
 

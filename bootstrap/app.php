@@ -3,6 +3,7 @@
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureClient;
 use App\Http\Middleware\EnsureNotSuspended;
+use App\Http\Middleware\EnforceIdleTimeout;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -26,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'client' => EnsureClient::class,
             'admin.access' => EnsureAdmin::class,
             'not.suspended' => EnsureNotSuspended::class,
+            'idle.timeout' => EnforceIdleTimeout::class,
             'guest.client' => RedirectIfAuthenticated::class.':web',
             'guest.admin' => RedirectIfAuthenticated::class.':admin',
         ]);

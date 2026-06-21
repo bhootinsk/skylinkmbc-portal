@@ -14,7 +14,7 @@ Route::middleware('guest.client')->group(function () {
     Route::post('login', [ClientLoginController::class, 'store'])->middleware('throttle:5,1');
 });
 
-Route::middleware(['auth:web', 'client', 'not.suspended:web'])->group(function () {
+Route::middleware(['auth:web', 'client', 'not.suspended:web', 'idle.timeout:web'])->group(function () {
     Route::get('dashboard', ClientDashboardController::class)->name('client.dashboard');
     Route::post('logout', [ClientLoginController::class, 'destroy'])->name('logout');
 
